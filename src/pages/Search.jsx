@@ -5,8 +5,10 @@ import { useHotels } from '../contexts/HotelContext'
 
 const Search = () => {
   const [searchParams, setSearchParams] = useSearchParams()
+  // Support both 'location' and 'q' param for searching
+  const getLocationFromParams = () => searchParams.get('q') || searchParams.get('location') || ''
   const [filters, setFilters] = useState({
-    location: searchParams.get('location') || '',
+    location: getLocationFromParams(),
     checkIn: searchParams.get('checkIn') || '',
     checkOut: searchParams.get('checkOut') || '',
     guests: parseInt(searchParams.get('guests')) || 1,
@@ -16,6 +18,14 @@ const Search = () => {
     rating: '',
     amenities: []
   })
+
+  // Update filters when searchParams change (e.g., new search from header)
+  useEffect(() => {
+    setFilters(prev => ({
+      ...prev,
+      location: getLocationFromParams()
+    }))
+  }, [searchParams])
   const [showFilters, setShowFilters] = useState(false)
   const [sortBy, setSortBy] = useState('price')
   const { hotels, searchHotels } = useHotels()

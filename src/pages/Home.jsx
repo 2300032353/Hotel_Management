@@ -57,11 +57,10 @@ const Home = () => {
                         placeholder="Enter destination"
                         value={searchData.location}
                         onChange={(e) => setSearchData({...searchData, location: e.target.value})}
-                        className="w-full pl-10 pr-3 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                        className="w-full pl-10 pr-3 py-3 border border-gray-300 rounded-lg bg-gray-100 shadow-sm text-gray-800 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent"
                       />
                     </div>
                   </div>
-                  
                   <div>
                     <label className="block text-sm font-medium text-gray-700 mb-2">
                       Check-in
@@ -70,10 +69,9 @@ const Home = () => {
                       type="date"
                       value={searchData.checkIn}
                       onChange={(e) => setSearchData({...searchData, checkIn: e.target.value})}
-                      className="w-full px-3 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                      className="w-full px-3 py-3 border border-gray-300 rounded-lg bg-gray-100 shadow-sm text-gray-800 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent"
                     />
                   </div>
-                  
                   <div>
                     <label className="block text-sm font-medium text-gray-700 mb-2">
                       Check-out
@@ -82,19 +80,18 @@ const Home = () => {
                       type="date"
                       value={searchData.checkOut}
                       onChange={(e) => setSearchData({...searchData, checkOut: e.target.value})}
-                      className="w-full px-3 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                      className="w-full px-3 py-3 border border-gray-300 rounded-lg bg-gray-100 shadow-sm text-gray-800 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent"
                     />
                   </div>
-                  
-                  <div>
+                  <div className="col-span-1 lg:col-span-1 flex flex-col justify-end">
                     <label className="block text-sm font-medium text-gray-700 mb-2">
                       Guests & Rooms
                     </label>
-                    <div className="flex space-x-2">
+                    <div className="flex gap-2">
                       <select
                         value={searchData.guests}
                         onChange={(e) => setSearchData({...searchData, guests: parseInt(e.target.value)})}
-                        className="flex-1 px-3 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                        className="w-1/2 px-3 py-3 border border-gray-300 rounded-lg bg-gray-100 shadow-sm text-gray-800 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent"
                       >
                         {[1,2,3,4,5,6].map(num => (
                           <option key={num} value={num}>{num} Guest{num > 1 ? 's' : ''}</option>
@@ -103,7 +100,7 @@ const Home = () => {
                       <select
                         value={searchData.rooms}
                         onChange={(e) => setSearchData({...searchData, rooms: parseInt(e.target.value)})}
-                        className="flex-1 px-3 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                        className="w-1/2 px-3 py-3 border border-gray-300 rounded-lg bg-gray-100 shadow-sm text-gray-800 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent"
                       >
                         {[1,2,3,4,5].map(num => (
                           <option key={num} value={num}>{num} Room{num > 1 ? 's' : ''}</option>
@@ -112,7 +109,6 @@ const Home = () => {
                     </div>
                   </div>
                 </div>
-                
                 <button
                   type="submit"
                   className="w-full mt-6 bg-primary-600 hover:bg-primary-700 text-white font-semibold py-3 px-6 rounded-lg transition-colors duration-200 flex items-center justify-center space-x-2"

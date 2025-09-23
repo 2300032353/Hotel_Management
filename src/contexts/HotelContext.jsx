@@ -20,10 +20,7 @@ export const HotelProvider = ({ children }) => {
       price: 299,
       image: '/src/assets/images/hotel-room-1.jpg',
       images: [
-        '/src/assets/images/hotel-room-1.jpg',
-        '/src/assets/images/hotel-room-2.jpg',
-        '/src/assets/images/hotel-room-3.jpg',
-        '/src/assets/images/hotel-room-4.jpg'
+        '/src/assets/images/hotel-room-1.jpg'
       ],
       amenities: ['Free WiFi', 'Pool', 'Spa', 'Restaurant', 'Gym', 'Parking'],
       description: 'Experience luxury at its finest in the heart of Manhattan. Our premium hotel offers world-class amenities and breathtaking city views.',
@@ -66,9 +63,6 @@ export const HotelProvider = ({ children }) => {
       image: '/src/assets/images/hotel-room-2.jpg',
       images: [
         '/src/assets/images/hotel-room-2.jpg',
-        '/src/assets/images/hotel-room-1.jpg',
-        '/src/assets/images/hotel-room-4.jpg',
-        '/src/assets/images/hotel-room-3.jpg'
       ],
       amenities: ['Beach Access', 'Pool', 'Spa', 'Restaurant', 'Gym', 'Free WiFi'],
       description: 'Relax and unwind at our beachfront resort with stunning ocean views and world-class spa services.',
@@ -102,9 +96,6 @@ export const HotelProvider = ({ children }) => {
       image: '/src/assets/images/hotel-room-3.jpg',
       images: [
         '/src/assets/images/hotel-room-3.jpg',
-        '/src/assets/images/hotel-room-1.jpg',
-        '/src/assets/images/hotel-room-2.jpg',
-        '/src/assets/images/hotel-room-4.jpg'
       ],
       amenities: ['Mountain Views', 'Hiking Trails', 'Restaurant', 'Free WiFi', 'Parking'],
       description: 'Escape to the mountains and enjoy breathtaking views and outdoor adventures at our cozy lodge.',
@@ -143,12 +134,20 @@ export const HotelProvider = ({ children }) => {
   const searchHotels = (filters) => {
     setSearchFilters(filters)
     // In a real app, this would make an API call
+    if (!filters.location || filters.location.trim() === "") {
+      return hotels;
+    }
+    const searchText = filters.location.toLowerCase().trim();
+    const searchWords = searchText.split(/\s+/);
     return hotels.filter(hotel => {
-      if (filters.location && !hotel.location.toLowerCase().includes(filters.location.toLowerCase())) {
-        return false
-      }
-      return true
-    })
+      const hotelNameWords = hotel.name.toLowerCase().split(/\s+/);
+      const hotelLocationWords = hotel.location.toLowerCase().split(/\s+/);
+      // Match if ANY search word is contained within any word in name or location
+      return searchWords.some(searchWord =>
+        hotelNameWords.some(hotelWord => hotelWord.includes(searchWord)) ||
+        hotelLocationWords.some(hotelWord => hotelWord.includes(searchWord))
+      );
+    });
   }
 
   const getHotelById = (id) => {

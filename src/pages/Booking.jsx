@@ -15,7 +15,9 @@ const Booking = () => {
     checkIn: '',
     checkOut: '',
     guests: 1,
+    mealType: '',
     specialRequests: '',
+    paymentMethod: '',
     guestInfo: {
       firstName: '',
       lastName: '',
@@ -85,6 +87,7 @@ const Booking = () => {
       return
     }
 
+
     if (!bookingData.checkIn || !bookingData.checkOut) {
       toast.error('Please select check-in and check-out dates')
       return
@@ -92,6 +95,11 @@ const Booking = () => {
 
     if (new Date(bookingData.checkIn) >= new Date(bookingData.checkOut)) {
       toast.error('Check-out date must be after check-in date')
+      return
+    }
+
+    if (!bookingData.paymentMethod) {
+      toast.error('Please select a payment method')
       return
     }
 
@@ -225,6 +233,24 @@ const Booking = () => {
                   </div>
                 </div>
 
+                {/* Meal Type */}
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                    Meal Type
+                  </label>
+                  <select
+                    value={bookingData.mealType}
+                    onChange={(e) => setBookingData({...bookingData, mealType: e.target.value})}
+                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                  >
+                    <option value="">Select meal type</option>
+                    <option value="South Indian">South Indian</option>
+                    <option value="North Indian">North Indian</option>
+                    <option value="Mexican">Mexican</option>
+                    <option value="Chinese">Chinese</option>
+                  </select>
+                </div>
+
                 {/* Guest Information */}
                 <div className="border-t pt-6">
                   <h3 className="text-lg font-semibold text-gray-900 mb-4">Guest Information</h3>
@@ -289,6 +315,46 @@ const Booking = () => {
                         required
                       />
                     </div>
+                  </div>
+                </div>
+
+
+                {/* Payment Method */}
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                    Payment Method
+                  </label>
+                  <div className="flex flex-col gap-2">
+                    <label className="flex items-center gap-2">
+                      <input
+                        type="radio"
+                        name="paymentMethod"
+                        value="Cash"
+                        checked={bookingData.paymentMethod === 'Cash'}
+                        onChange={(e) => setBookingData({...bookingData, paymentMethod: e.target.value})}
+                      />
+                      Cash
+                    </label>
+                    <label className="flex items-center gap-2">
+                      <input
+                        type="radio"
+                        name="paymentMethod"
+                        value="Card"
+                        checked={bookingData.paymentMethod === 'Card'}
+                        onChange={(e) => setBookingData({...bookingData, paymentMethod: e.target.value})}
+                      />
+                      Card
+                    </label>
+                    <label className="flex items-center gap-2">
+                      <input
+                        type="radio"
+                        name="paymentMethod"
+                        value="Online UPI"
+                        checked={bookingData.paymentMethod === 'Online UPI'}
+                        onChange={(e) => setBookingData({...bookingData, paymentMethod: e.target.value})}
+                      />
+                      Online UPI
+                    </label>
                   </div>
                 </div>
 
